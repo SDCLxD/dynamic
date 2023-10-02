@@ -17,8 +17,8 @@ db.connect((error) => {
   console.log('Conectado ao servidor MySQL.');
 });
 
-app.post('/api/auth', (req, res) => {
-  const { chave, rng } = req.body;
+app.get('/api/auth', (req, res) => {
+  const { chave, rng } = req.query;
   
   if (!chave) {
     return res.status(400).json({ message: 'Chave ou valor RNG ausente' });
