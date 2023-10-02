@@ -17,12 +17,14 @@ db.connect((error) => {
   console.log('Conectado ao servidor MySQL.');
 });
 
-app.get('/api/auth', (req, res) => {
-  const { chave } = req.query;
+app.post('/api/auth', (req, res) => {
+  const { chave, rng } = req.body;
   
   if (!chave) {
-    return res.status(400).json({ message: 'Nenhuma chave fornecida' });
+    return res.status(400).json({ message: 'Chave ou valor RNG ausente' });
   }
+
+  const modifiedRng = parseInt(rng) + 10;
 
   const query = 'SELECT * FROM whitelist WHERE chave = ?';
   db.query(query, [chave], (error, results) => {
@@ -31,7 +33,7 @@ app.get('/api/auth', (req, res) => {
     if (results.length > 0) {
       res.status(200).json('Whitelist realizada com sucesso');
     } else {
-      res.status(403).json({ message: 'Chave não encontrada na whitelist' });
+      res.status(403).json({ message: 'Chave ou valor RNG inválido' });
     }
   });
 });
