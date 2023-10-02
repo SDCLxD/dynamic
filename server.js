@@ -25,7 +25,8 @@ app.get('/api/auth', (req, res) => {
   }
 
   const modifiedRng = parseInt(rng) + 1;
-  console.log('Valor RNG recebido:', rng)
+  console.log('Valor RNG recebido:', rng);
+  console.log('Valor RNG modificado:', modifiedRng);
 
   const query = 'SELECT * FROM whitelist WHERE chave = ?';
   db.query(query, [chave, rng], (error, results) => {
