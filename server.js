@@ -24,14 +24,15 @@ app.get('/api/auth', (req, res) => {
     return res.status(400).json({ message: 'Chave ou valor RNG ausente' });
   }
 
-  const modifiedRng = parseInt(rng) + 10;
+  const modifiedRng = parseInt(rng) + 1;
+  console.log('Valor RNG recebido:', rng)
 
   const query = 'SELECT * FROM whitelist WHERE chave = ?';
   db.query(query, [chave, rng], (error, results) => {
     if (error) throw error;
 
     if (results.length > 0) {
-      res.status(200).json({ message: 'Whitelist realizada com sucesso' });
+      res.status(200).json({ message: 'Whitelist realizada com sucesso', rgn: rng });
     } else {
       res.status(403).json({ message: 'Chave ou valor RNG inválido' });
     }
