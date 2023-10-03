@@ -39,7 +39,7 @@ app.get('/api/auth', (req, res) => {
 app.post('/api/auth', (req, res) => {
   const { rng } = req.body;
   
-  if (!rgn) {
+  if (!rng) {
     return res.status(400).json({ message: 'RNG ausente' });
   }
 
