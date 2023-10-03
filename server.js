@@ -18,8 +18,7 @@ db.connect((error) => {
 });
 
 app.post('/api/auth', (req, res) => {
-  const { chave } = req.query;
-  const { rng } = req.body;
+  const { chave, rng } = req.body;
   
   if (!chave) {
     return res.status(400).json({ message: 'Chave ou valor RNG ausente' });
@@ -31,7 +30,7 @@ app.post('/api/auth', (req, res) => {
   console.log('Valor RNG modificado:', modifiedRng);
 
   const query = 'SELECT * FROM whitelist WHERE chave = ?';
-  db.req.query.chave((error, results) => {
+  db.req.query(( [chave], error, results) => {
     if (error) throw error;
 
     if (results.length > 0) {
