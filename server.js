@@ -54,7 +54,6 @@ app.post('/api/auth', (req, res) => {
       res.status(403).json({ message: 'Chave não encontrada na whitelist' });
     }
   });
-});
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
