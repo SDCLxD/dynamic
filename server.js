@@ -17,7 +17,7 @@ db.connect((error) => {
   console.log('Conectado ao servidor MySQL.');
 });
 
-app.get('/api/auth', (req, res) => {
+app.get('/api/whitelist', (req, res) => {
   const { chave } = req.query;
   
   if (!chave) {
