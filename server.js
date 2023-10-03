@@ -26,7 +26,7 @@ app.get('/api/auth', (req, res) => {
 
   
   const rng_value = rng;
-  const modifiedRng = rng_value + 1;
+  const modifiedRng = rng_value - 1
   console.log('Valor RNG recebido:', rng);
   console.log('Valor RNG modificado:', modifiedRng);
 
