@@ -35,7 +35,7 @@ app.post('/api/auth', (req, res) => {
     if (error) throw error;
 
     if (results.length > 0) {
-      res.status(200).json({ message: 'Whitelist realizada com sucesso', rgn: rng });
+      res.status(200).json({ message: 'Whitelist realizada com sucesso', rgn: modifiedRng });
     } else {
       res.status(403).json({ message: 'Chave ou valor RNG inválido' });
     }
