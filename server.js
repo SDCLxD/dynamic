@@ -18,7 +18,8 @@ db.connect((error) => {
 });
 
 app.post('/api/auth', (req, res) => {
-  const { chave, rng } = req.query;
+  const { chave } = req.query;
+  const { rng } = req.body;
   
   if (!chave) {
     return res.status(400).json({ message: 'Chave ou valor RNG ausente' });
