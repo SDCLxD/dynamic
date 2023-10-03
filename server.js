@@ -17,7 +17,7 @@ db.connect((error) => {
   console.log('Conectado ao servidor MySQL.');
 });
 
-app.get('/api/whitelist', (req, res) => {
+app.get('/script/whitelist', (req, res) => {
   const { chave } = req.query;
   
   if (!chave) {
@@ -29,7 +29,7 @@ app.get('/api/whitelist', (req, res) => {
     if (error) throw error;
 
     if (results.length > 0) {
-      res.status(200).json('Whitelist realizada com sucesso');
+      res.status(200).json({ message: 'Whitelist realizada com sucesso' });
     } else {
       res.status(403).json({ message: 'Chave não encontrada na whitelist' });
     }
