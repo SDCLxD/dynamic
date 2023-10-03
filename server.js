@@ -24,7 +24,7 @@ app.get('/api/auth', (req, res) => {
     return res.status(400).json({ message: 'Chave ou valor RNG ausente' });
   }
 
-  const rng_value = Math.floor(Math.random(12, 2103) * 2 + 7);
+  const rng_value = Math.floor(Math.random() * (12 - 2103) * 2) + 7;
   const modifiedRng = rng_value - 2
   console.log('Valor RNG recebido:', rng);
   console.log('Valor RNG modificado:', modifiedRng);
