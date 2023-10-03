@@ -50,9 +50,8 @@ app.post('/api/auth', (req, res) => {
 
   if (modifiedRng === 25) {
         res.status(200).json({ rgn: modifiedRng });
-    else {
-        res.status(403).json({ message: 'Invalid RNG' });
-      }
+    } else {
+      res.status(403).json({ message: 'Chave não encontrada na whitelist' });
     }
   });
 });
