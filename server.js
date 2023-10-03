@@ -17,7 +17,7 @@ db.connect((error) => {
   console.log('Conectado ao servidor MySQL.');
 });
 
-app.get('/api/auth', (req, res) => {
+app.post('/api/auth', (req, res) => {
   const { chave, rng } = req.query;
   
   if (!chave) {
