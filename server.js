@@ -17,12 +17,30 @@ db.connect((error) => {
   console.log('Conectado ao servidor MySQL.');
 });
 
-app.post('/api/auth', (req, res) => {
+app.get('/api/auth', (req, res) => {
   const { chave } = req.query;
-  const { rng } = req.body;
   
   if (!chave) {
-    return res.status(400).json({ message: 'Chave ou valor RNG ausente' });
+    return res.status(400).json({ message: 'Nenhuma chave fornecida' });
+  }
+
+  const query = 'SELECT * FROM whitelist WHERE chave = ?';
+  db.query(query, [chave], (error, results) => {
+    if (error) throw error;
+
+    if (results.length > 0) {
+      res.status(200).json('Whitelist realizada com sucesso');
+    } else {
+      res.status(403).json({ message: 'Chave não encontrada na whitelist' });
+    }
+  });
+});
+
+app.post('/api/auth', (req, res) => {
+  const { rng } = req.body;
+  
+  if (!rgn) {
+    return res.status(400).json({ message: 'RNG ausente' });
   }
 
   const rng_value = rng;
@@ -30,14 +48,11 @@ app.post('/api/auth', (req, res) => {
   console.log('Valor RNG recebido:', rng);
   console.log('Valor RNG modificado:', modifiedRng);
 
-  const query = 'SELECT * FROM whitelist WHERE chave = ?';
-  db.query(query, [chave], (error, results) => {
-    if (error) throw error;
-
-    if (results.length > 0) {
-      res.status(200).json({ message: 'Whitelist realizada com sucesso', rgn: modifiedRng });
-    } else {
-      res.status(403).json({ message: 'Chave ou valor RNG inválido' });
+  if (modifiedRng === 25) {
+        res.status(200).json({ rgn: modifiedRng });
+    else {
+        res.status(403).json({ message: 'Invalid RNG' });
+      }
     }
   });
 });
