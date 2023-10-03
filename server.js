@@ -38,20 +38,20 @@ app.get('/script/whitelist', (req, res) => {
 
 app.post('/api/auth', (req, res) => {
   const { rng } = req.body;
+  const rng_value = rng;
+  const modifiedRng = rng_value * 2 + 5;
   
   if (!rng) {
     return res.status(400).json({ message: 'RNG ausente' });
   }
-
-  const rng_value = rng;
-  const modifiedRng = rng_value * 2 + 5;
+  
   console.log('Valor RNG recebido:', rng);
   console.log('Valor RNG modificado:', modifiedRng);
 
   if (modifiedRng === 25) {
-        res.status(200).json({ rgn: modifiedRng });
+      res.status(200).json({ rng: modifiedRng });
     } else {
-      res.status(403).json({ message: 'Chave não encontrada na whitelist' });
+      res.status(403).json({ message: 'Trying to crack?' });
     }
   });
 
