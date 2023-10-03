@@ -24,7 +24,7 @@ app.get('/api/auth', (req, res) => {
     return res.status(400).json({ message: 'Chave ou valor RNG ausente' });
   }
 
-   const rng_value = Math.floor(Math.random() * (2103 - 12 + 1) + 12);
+  const rng_value = rng;
   const modifiedRng = rng_value * 2 + 5;
   console.log('Valor RNG recebido:', rng);
   console.log('Valor RNG modificado:', modifiedRng);
@@ -34,9 +34,8 @@ app.get('/api/auth', (req, res) => {
     if (error) throw error;
 
     if (results.length > 0) {
-      if (modifiedRng == rng) {
       res.status(200).json({ message: 'Whitelist realizada com sucesso', rgn: rng });
-    }} else {
+    } else {
       res.status(403).json({ message: 'Chave ou valor RNG inválido' });
     }
   });
