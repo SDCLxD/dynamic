@@ -25,8 +25,6 @@ app.get('/api/auth', (req, res) => {
   }
 
   
-  const seed = Date.now();
-  Math.seedrandom(seed);
   const rng_value = Math.floor(Math.random() * (2009 - 27 + 1)) + 27;
   const modifiedRng = rng_value + 14;
   console.log('Valor RNG recebido:', rng);
