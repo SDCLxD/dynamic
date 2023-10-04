@@ -48,7 +48,7 @@ app.post('/api/auth', (req, res) => {
   console.log('Valor RNG recebido:', rng);
   console.log('Valor RNG modificado:', modifiedRng);
 
-  if (modifiedRng === 14) {
+  if (modifiedRng === 1.6666666666860692 ) {
       res.status(200).json({ rng: modifiedRng });
     } else {
       res.status(403).json({ message: 'Trying to crack?' });
