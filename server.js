@@ -39,7 +39,7 @@ app.get('/script/whitelist', (req, res) => {
 app.post('/api/auth', (req, res) => {
   const { rng } = req.body;
   const rng_value = rng;
-  const modifiedRng = rng_value * 2 - 70 / 2;
+  const modifiedRng = rng_value * 2 + 5;
   
   if (!rng) {
     return res.status(400).json({ message: 'RNG ausente' });
