@@ -39,7 +39,7 @@ app.get('/script/whitelist', (req, res) => {
 app.post('/api/auth', (req, res) => {
   const { rng } = req.body;
   const rng_value = rng;
-  const modifiedRng = rng_value * 2 + 5;
+  const modifiedRng = (rng_value - 6 + 5 * 4 / 3) % 2;
   
   if (!rng) {
     return res.status(400).json({ message: 'RNG ausente' });
@@ -48,7 +48,7 @@ app.post('/api/auth', (req, res) => {
   console.log('Valor RNG recebido:', rng);
   console.log('Valor RNG modificado:', modifiedRng);
 
-  if (modifiedRng === 25) {
+  if (modifiedRng === 14) {
       res.status(200).json({ rng: modifiedRng });
     } else {
       res.status(403).json({ message: 'Trying to crack?' });
