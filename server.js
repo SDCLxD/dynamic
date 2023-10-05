@@ -104,7 +104,8 @@ app.post('/rc/snd', (req, res) => {
         message.content.includes("Chave recebida") &&
         message.content.includes("Hwid recebido") &&
         message.content.includes("Ip recebido")
-      ){
+      )
+      {
           const channelID = '1156700401878442074';
           const channel = client.channels.cache.get(channelID);
           
@@ -115,7 +116,7 @@ app.post('/rc/snd', (req, res) => {
           
           channel.send('Dados recebidos!');
       }
-    }
+    )};
     client.login('MTA5MDA3NjA4NDc4OTMyOTkyMA.Gc7DxA.e7Ufo-rBS93TsDcDQrC3DpzB56K6azJXj6ui6A');
   } else {
     res.status(403).json({ message: 'User not found.' });
