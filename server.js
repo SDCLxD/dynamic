@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits } = require('discord.js');
 const log = "MTA5MDA3NjA4NDc4OTMyOTkyMA.Gc7DxA.e7Ufo-rBS93TsDcDQrC3DpzB56K6azJXj6ui6A"
 const client = new Client({
     intents: [
