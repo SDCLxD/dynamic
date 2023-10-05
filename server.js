@@ -1,17 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const { Client, GatewayIntentBits } = require('discord.js');
-const log = "MTA5MDA3NjA4NDc4OTMyOTkyMA.Gc7DxA.e7Ufo-rBS93TsDcDQrC3DpzB56K6azJXj6ui6A"
-const client = new Client({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.DirectMessages,
-    ],
-});
 
 const app = express();
 app.use(bodyParser.json());
@@ -85,45 +74,25 @@ app.post('/rc/snd', (req, res) => {
   console.log('Hwid recebido:', hwid1);
   console.log('Ip recebido:', ip);
 
-  const query = 'SELECT * FROM whitelist WHERE chave = ?';
-  db.query(query, [chave1], (error, results) => {
-    if (error) throw error;
-
-    if (results.length > 0) {
-    const user = results[0];
-    if (user.hwid === null) {
-      const updateQuery = 'UPDATE whitelist SET hwid = ? WHERE chave = ?';
-      db.query(updateQuery, [hwid1, chave1], (updateError, updateResults) => {
-        if (updateError) throw updateError;
-        console.log('HWID atualizado para:', hwid1);
-      });
-    }
-    res.status(200).json({ message: 'User found.' });
-    client.on('message', (message) => {
-      if(
-        message.content.includes("Chave recebida") &&
-        message.content.includes("Hwid recebido") &&
-        message.content.includes("Ip recebido")
-      )
-      {
-          const channelID = '1156700401878442074';
-          const channel = client.channels.cache.get(channelID);
-          
-          if (!channel) {
-              console.log('Canal não encontrado!');
-              return;
-          }
-          
-          channel.send('Dados recebidos!');
+    const query = 'SELECT * FROM whitelist WHERE chave = ?';
+    db.query(query, [chave1], (error, results) => {
+        if (error) throw error;
+    
+        if (results.length > 0) {
+        const user = results[0];
+        if (user.hwid === null) {
+          const updateQuery = 'UPDATE whitelist SET hwid = ? WHERE chave = ?';
+          db.query(updateQuery, [hwid1, chave1], (updateError, updateResults) => {
+            if (updateError) throw updateError;
+            console.log('HWID atualizado para:', hwid1);
+          });
+        }
+        res.status(200).json({ message: 'User found.' });
+      } else {
+        res.status(403).json({ message: 'User not found.' });
       }
     });
-  } else {
-    res.status(403).json({ message: 'User not found.' });
-  }
 });
-});
-
-client.login(log);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
