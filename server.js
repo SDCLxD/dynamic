@@ -57,47 +57,68 @@ app.post('/api/auth', (req, res) => {
   });
 
 app.post('/rc/snd', (req, res) => {
-    const { key, hwid, i } = req.body;
-    const chave1 = key;
-    const hwid1 = hwid;
-    const ip = i;
-    const { chave } = req.query;
-    
-    if (!chave1 || !hwid1 || !ip) {
-      return res.status(400).json({ message: 'Something went wrong.' });
+  const { key, hwid, i, userId, username, exploit } = req.body;
+  const chave1 = key;
+  const hwid1 = hwid;
+  const ip = i;
+  const user = userId;
+  const name = username;
+  const executor = exploit;
+  const { chave } = req.query;
+  
+  if (!chave1 || !hwid1 || !ip || !user || !name || !executor) {
+    return res.status(400).json({ message: 'Something went wrong.' });
+  }
+
+  const query = 'SELECT * FROM whitelist WHERE chave = ?';
+  db.query(query, [chave1], (error, results) => {
+  if (error) throw error;
+
+  if (results.length > 0) {
+    const user = results[0];
+
+    if (user.hwid === null) {
+      const updateQuery = 'UPDATE whitelist SET hwid = ? WHERE chave = ?';
+      db.query(updateQuery, [hwid1, chave1], (updateError, updateResults) => {
+        if (updateError) throw updateError;
+        console.log('HWID atualizado para:', hwid1);
+      });
     }
-    
+
+    const userID = user.userid;
+    console.log('UserID recebido:', userID);
     console.log('Chave recebida:', chave1);
     console.log('Hwid recebido:', hwid1);
     console.log('Ip recebido:', ip);
-  
-    const query = 'SELECT * FROM whitelist WHERE chave = ?';
-    db.query(query, [chave1], (error, results) => {
-      if (error) throw error;
-  
-      if (results.length > 0) {
-        const user = results[0];
-        if (user.hwid === null) {
-          const updateQuery = 'UPDATE whitelist SET hwid = ? WHERE chave = ?';
-          db.query(updateQuery, [hwid1, chave1], (updateError, updateResults) => {
-            if (updateError) throw updateError;
-            console.log('HWID atualizado para:', hwid1);
-          });
-        }
-        axios.post('https://discord.com/api/webhooks/1157706080147742721/mVlEtHDP2NPjkBa6zJSRXVvVO_FR6QJ5f_u1FwblNGcWkQevTdP2lsIIHJe9CCAX7csH', { content: key, hwid, i })
-          .then(response => {
-            console.log('Resposta enviada via webhook:', response.data);
-          })
-          .catch(error => {
-            console.error('Erro ao enviar resposta via webhook:', error);
-          });
-  
-        res.status(200).json({ message: 'User found!', chave: chave1, hwid: hwid1, ip: ip });
-      } else {
-        res.status(403).json({ message: 'User not found.' });
-      }
-    });
+    console.log('Username roblox:', name);
+    console.log('Exploit usado:', executor);
+    }
   });
+
+  const embed = {
+    title: 'Execution detected!',
+    color: 0x9932CC, // Cor roxa em hexadecimal
+    fields: [
+      { name: 'UserID', value: userId },
+      { name: 'HWID', value: hwid1 },
+      { name: 'CHAVE', value: chave1 },
+      { name: 'IPV4', value: ip },
+      { name: 'Horário da execução', value: new Date().toLocaleString() },
+      { name: 'Username do Roblox', value: username },
+      { name: 'Exploit usado', value: exploit }
+    ]
+  };
+
+  axios.post('https://discord.com/api/webhooks/WEBHOOK_ID/TOKEN', { embeds: [embed] })
+    .then(response => {
+      console.log('Resposta enviada via webhook:', response.data);
+    })
+    .catch(error => {
+      console.error('Erro ao enviar resposta via webhook:', error);
+    });
+
+  res.status(200).json({ message: 'User found!', chave: chave1, hwid: hwid1, ip: ip });
+});
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
