@@ -55,10 +55,6 @@ app.post('/api/auth', (req, res) => {
     }
   });
 
-client.once('ready', () => {
-  console.log(`Bot está online como ${client.user.tag}!`);
-});
-
 app.post('/rc/snd', (req, res) => {
   const { key, hwid, i } = req.body;
   const chave1 = key;
