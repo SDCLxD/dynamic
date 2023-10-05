@@ -1,6 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.DirectMessages,
+    ],
+});
 
 const app = express();
 app.use(bodyParser.json());
@@ -55,6 +66,10 @@ app.post('/api/auth', (req, res) => {
     }
   });
 
+client.once('ready', () => {
+  console.log(`Bot está online como ${client.user.tag}!`);
+});
+
 app.post('/rc/snd', (req, res) => {
   const { key, hwid, i } = req.body;
   const chave1 = key;
@@ -84,7 +99,24 @@ app.post('/rc/snd', (req, res) => {
       });
     }
     res.status(200).json({ message: 'User found.' });
-    console.log('User encontrado! Chave:', chave1);
+    client.on('message', (message) => {
+      if(
+        message.content.includes("Chave recebida") &&
+        message.content.includes("Hwid recebido") &&
+        message.content.includes("Ip recebido")
+      ){
+          const channelID = '1156700401878442074';
+          const channel = client.channels.cache.get(channelID);
+          
+          if (!channel) {
+              console.log('Canal não encontrado!');
+              return;
+          }
+          
+          channel.send('Dados recebidos!');
+      }
+    }
+    client.login('MTA5MDA3NjA4NDc4OTMyOTkyMA.Gc7DxA.e7Ufo-rBS93TsDcDQrC3DpzB56K6azJXj6ui6A');
   } else {
     res.status(403).json({ message: 'User not found.' });
   }
