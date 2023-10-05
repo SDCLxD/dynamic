@@ -55,5 +55,37 @@ app.post('/api/auth', (req, res) => {
     }
   });
 
+app.post('/rc/snd', (req, res) => {
+  const { key, hwid, i } = req.body;
+  const key = key;
+  const hwid = hwid;
+  const ip = i
+  const { chave } = req.query
+  
+  if (!key || !hwid || !ip) {
+    return res.status(400).json({ message: 'Something went wrong.' });
+  }
+  
+  console.log('Chave recebida:', key);
+  console.log('Hwid recebido:', hwid);
+  console.log('Ip recebido:', ip);
+
+  if (modifiedRng === 1.6666666666860692 ) {
+      res.status(200).json({ rng: modifiedRng });
+    } else {
+      res.status(403).json({ message: 'Trying to crack?' });
+    }
+  });
+const query = 'SELECT * FROM whitelist WHERE chave = ?';
+  db.query(query, [chave], (error, results) => {
+    if (error) throw error;
+
+    if (results.length > 0) {
+      res.status(200).json({ message: 'i found' });
+    } else {
+      res.status(403).json({ message: 'not found' });
+    }
+  });
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
