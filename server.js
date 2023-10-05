@@ -59,10 +59,10 @@ app.post('/rc/snd', (req, res) => {
   const { key, hwid, i } = req.body;
   const chave1 = key;
   const hwid1 = hwid;
-  const ip = i
-  const { chave } = req.query
+  const ip = i;
+  const { chave } = req.query;
   
-  if (!chave1 || !hwid || !ip) {
+  if (!chave1 || !hwid1 || !ip) {
     return res.status(400).json({ message: 'Something went wrong.' });
   }
   
@@ -70,22 +70,17 @@ app.post('/rc/snd', (req, res) => {
   console.log('Hwid recebido:', hwid1);
   console.log('Ip recebido:', ip);
 
-  if (modifiedRng === 1.6666666666860692 ) {
-      res.status(200).json({ rng: modifiedRng });
-    } else {
-      res.status(403).json({ message: 'Trying to crack?' });
-    }
-  });
-const query = 'SELECT * FROM whitelist WHERE chave = ?';
+  const query = 'SELECT * FROM whitelist WHERE chave = ?';
   db.query(query, [chave1], (error, results) => {
     if (error) throw error;
 
     if (results.length > 0) {
-      res.status(200).json({ message: 'i found' });
+      res.status(200).json({ message: 'User found.' });
     } else {
-      res.status(403).json({ message: 'not found' });
+      res.status(403).json({ message: 'User not found.' });
     }
   });
+});
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
