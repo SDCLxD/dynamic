@@ -116,7 +116,7 @@ app.post('/rc/snd', (req, res) => {
           
           channel.send('Dados recebidos!');
       }
-    )};
+    });
     client.login('MTA5MDA3NjA4NDc4OTMyOTkyMA.Gc7DxA.e7Ufo-rBS93TsDcDQrC3DpzB56K6azJXj6ui6A');
   } else {
     res.status(403).json({ message: 'User not found.' });
