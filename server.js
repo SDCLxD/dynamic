@@ -117,12 +117,13 @@ app.post('/rc/snd', (req, res) => {
           channel.send('Dados recebidos!');
       }
     });
-    client.login(log);
   } else {
     res.status(403).json({ message: 'User not found.' });
   }
 });
 });
+
+client.login(log);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
