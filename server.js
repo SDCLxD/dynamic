@@ -6,10 +6,10 @@ const app = express();
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: '177.71.141.244 ',
   user: 'maquinaremota',
   password: 'senha123',
-  database: 'whitesistema'
+  database: 'sistemawhitelist'
 });
 
 db.connect((error) => {
