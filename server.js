@@ -57,47 +57,47 @@ app.post('/api/auth', (req, res) => {
   });
 
 app.post('/rc/snd', (req, res) => {
-  const { key, hwid, i } = req.body;
-  const chave1 = key;
-  const hwid1 = hwid;
-  const ip = i;
-  const { chave } = req.query;
+    const { key, hwid, i } = req.body;
+    const chave1 = key;
+    const hwid1 = hwid;
+    const ip = i;
+    const { chave } = req.query;
+    
+    if (!chave1 || !hwid1 || !ip) {
+      return res.status(400).json({ message: 'Something went wrong.' });
+    }
+    
+    console.log('Chave recebida:', chave1);
+    console.log('Hwid recebido:', hwid1);
+    console.log('Ip recebido:', ip);
   
-  if (!chave1 || !hwid1 || !ip) {
-    return res.status(400).json({ message: 'Something went wrong.' });
-  }
-  
-  console.log('Chave recebida:', chave1);
-  console.log('Hwid recebido:', hwid1);
-  console.log('Ip recebido:', ip);
-
     const query = 'SELECT * FROM whitelist WHERE chave = ?';
     db.query(query, [chave1], (error, results) => {
-        if (error) throw error;
-    
-        if (results.length > 0) {
+      if (error) throw error;
+  
+      if (results.length > 0) {
         const user = results[0];
         if (user.hwid === null) {
           const updateQuery = 'UPDATE whitelist SET hwid = ? WHERE chave = ?';
           db.query(updateQuery, [hwid1, chave1], (updateError, updateResults) => {
             if (updateError) throw updateError;
-              console.log('HWID atualizado para:', hwid1);
+            console.log('HWID atualizado para:', hwid1);
           });
         }
+        axios.post('https://discord.com/api/webhooks/1157706080147742721/mVlEtHDP2NPjkBa6zJSRXVvVO_FR6QJ5f_u1FwblNGcWkQevTdP2lsIIHJe9CCAX7csH', { content: key, hwid, i })
+          .then(response => {
+            console.log('Resposta enviada via webhook:', response.data);
+          })
+          .catch(error => {
+            console.error('Erro ao enviar resposta via webhook:', error);
+          });
+  
         res.status(200).json({ message: 'User found!', chave: chave1, hwid: hwid1, ip: ip });
-          axios.post('https://discord.com/api/webhooks/1157706080147742721/mVlEtHDP2NPjkBa6zJSRXVvVO_FR6QJ5f_u1FwblNGcWkQevTdP2lsIIHJe9CCAX7csH', { content: key, hwid, i })
-            .then(response => {
-              res.send('Resposta enviada via webhook!');
-            })
-            .catch(error => {
-          console.error('Erro ao enviar resposta via webhook:', error);
-        res.status(500).send('Erro ao enviar resposta via webhook');
-      });
       } else {
         res.status(403).json({ message: 'User not found.' });
       }
     });
-});
+  });
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
