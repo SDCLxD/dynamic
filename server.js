@@ -77,7 +77,7 @@ app.post('/rc/snd', (req, res) => {
     }
   });
 const query = 'SELECT * FROM whitelist WHERE chave = ?';
-  db.query(query, [chave], (error, results) => {
+  db.query(query, [chave1], (error, results) => {
     if (error) throw error;
 
     if (results.length > 0) {
