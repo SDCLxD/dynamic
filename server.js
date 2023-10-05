@@ -76,6 +76,7 @@ app.post('/rc/snd', (req, res) => {
 
     if (results.length > 0) {
       res.status(200).json({ message: 'User found.' });
+      console.log('User encontrado! Chave:', chave1);
     } else {
       res.status(403).json({ message: 'User not found.' });
     }
