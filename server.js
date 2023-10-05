@@ -62,7 +62,7 @@ app.post('/rc/snd', (req, res) => {
   const ip = i
   const { chave } = req.query
   
-  if (!chave || !hwid || !ip) {
+  if (!chave1 || !hwid || !ip) {
     return res.status(400).json({ message: 'Something went wrong.' });
   }
   
