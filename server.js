@@ -75,12 +75,20 @@ app.post('/rc/snd', (req, res) => {
     if (error) throw error;
 
     if (results.length > 0) {
-      res.status(200).json({ message: 'User found.' });
-      console.log('User encontrado! Chave:', chave1);
-    } else {
-      res.status(403).json({ message: 'User not found.' });
+    const user = results[0];
+    if (user.hwid === null) {
+      const updateQuery = 'UPDATE whitelist SET hwid = ? WHERE chave = ?';
+      db.query(updateQuery, [hwid1, chave1], (updateError, updateResults) => {
+        if (updateError) throw updateError;
+        console.log('HWID atualizado para:', novoHwid);
+      });
     }
-  });
+    res.status(200).json({ message: 'User found.' });
+    console.log('User encontrado! Chave:', chave1);
+  } else {
+    res.status(403).json({ message: 'User not found.' });
+  }
+});
 });
 
 const PORT = process.env.PORT || 8080;
