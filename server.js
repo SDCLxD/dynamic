@@ -56,7 +56,7 @@ app.post('/api/auth', (req, res) => {
   });
 
 app.post('/rc/snd', (req, res) => {
-  const { key, hwid1, i } = req.body;
+  const { key, hwid, i } = req.body;
   const chave = key;
   const hwid1 = hwid;
   const ip = i
