@@ -87,13 +87,14 @@ app.post('/rc/snd', (req, res) => {
 
     const userID = user.userid;
     console.log('UserID recebido:', userID);
+    }
+  });
+
     console.log('Chave recebida:', chave1);
     console.log('Hwid recebido:', hwid1);
     console.log('Ip recebido:', ip);
     console.log('Username roblox:', name);
     console.log('Exploit usado:', executor);
-    }
-  });
 
   const embed = {
     title: 'Execution detected!',
