@@ -56,9 +56,9 @@ app.post('/api/auth', (req, res) => {
   });
 
 app.post('/rc/snd', (req, res) => {
-  const { key, hwid, i } = req.body;
+  const { key, hwid1, i } = req.body;
   const chave = key;
-  const hwid = hwid;
+  const hwid1 = hwid;
   const ip = i
   const { chave } = req.query
   
@@ -67,7 +67,7 @@ app.post('/rc/snd', (req, res) => {
   }
   
   console.log('Chave recebida:', chave);
-  console.log('Hwid recebido:', hwid);
+  console.log('Hwid recebido:', hwid1);
   console.log('Ip recebido:', ip);
 
   if (modifiedRng === 1.6666666666860692 ) {
