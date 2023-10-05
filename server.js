@@ -57,7 +57,7 @@ app.post('/api/auth', (req, res) => {
 
 app.post('/rc/snd', (req, res) => {
   const { key, hwid, i } = req.body;
-  const chave = key;
+  const chave1 = key;
   const hwid1 = hwid;
   const ip = i
   const { chave } = req.query
@@ -66,7 +66,7 @@ app.post('/rc/snd', (req, res) => {
     return res.status(400).json({ message: 'Something went wrong.' });
   }
   
-  console.log('Chave recebida:', chave);
+  console.log('Chave recebida:', chave1);
   console.log('Hwid recebido:', hwid1);
   console.log('Ip recebido:', ip);
 
