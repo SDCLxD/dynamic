@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
@@ -84,6 +85,14 @@ app.post('/rc/snd', (req, res) => {
           });
         }
         res.status(200).json({ message: 'User found!', chave: chave1, hwid: hwid1, ip: ip });
+          axios.post('https://discord.com/api/webhooks/1157706080147742721/mVlEtHDP2NPjkBa6zJSRXVvVO_FR6QJ5f_u1FwblNGcWkQevTdP2lsIIHJe9CCAX7csH', { content: key, hwid, i })
+            .then(response => {
+              res.send('Resposta enviada via webhook!');
+            })
+            .catch(error => {
+          console.error('Erro ao enviar resposta via webhook:', error);
+        res.status(500).send('Erro ao enviar resposta via webhook');
+      });
       } else {
         res.status(403).json({ message: 'User not found.' });
       }
