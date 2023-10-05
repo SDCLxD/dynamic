@@ -80,7 +80,7 @@ app.post('/rc/snd', (req, res) => {
       const updateQuery = 'UPDATE whitelist SET hwid = ? WHERE chave = ?';
       db.query(updateQuery, [hwid1, chave1], (updateError, updateResults) => {
         if (updateError) throw updateError;
-        console.log('HWID atualizado para:', novoHwid);
+        console.log('HWID atualizado para:', hwid1);
       });
     }
     res.status(200).json({ message: 'User found.' });
