@@ -26,8 +26,6 @@ app.post('/script/whitelist', (req, res) => {
     return res.status(400).json({ message: 'Chave ou HWID não fornecido' });
   }
 
-  console.log('hwid recebido:', hwide);
-
   const query = 'SELECT * FROM whitelist WHERE chave = ?';
   db.query(query, [chave], (error, results) => {
     if (error) throw error;
@@ -42,10 +40,8 @@ app.post('/script/whitelist', (req, res) => {
         });
       } else if (whitelistEntry.hwid === hwide) {
         res.status(200).json({ message: 'Whitelist realizada com sucesso' });
-        console.log('os dois batem');
       } else {
-        res.status(403).json({ message: 'HWID inválido para esta chave' });
-        console.log('os dois não batem');
+        res.status(403).json({ message: 'Chave ou HWID inválidos.', error: "[Verify] HWID does not match key, ask for an HWID reset" });
       }
     }
   });
@@ -66,7 +62,7 @@ app.post('/api/auth', (req, res) => {
   if (modifiedRng === 1.6666666666860692 ) {
       res.status(200).json({ rng: modifiedRng });
     } else {
-      res.status(403).json({ message: 'Trying to crack?' });
+      res.status(403).json({ error: 'Someone tried to crack, or just a whitelist error.' });
     }
   });
 
@@ -78,7 +74,7 @@ app.post('/rc/snd', (req, res) => {
   const { chave } = req.query;
   
   if (!chave1 || !hwid1 || !ip) {
-    return res.status(400).json({ message: 'Something went wrong.' });
+    return res.status(400).json({ error: 'Something went wrong.' });
   }
 
     const query = 'SELECT * FROM whitelist WHERE chave = ?';
@@ -96,7 +92,7 @@ app.post('/rc/snd', (req, res) => {
         }
         res.status(200).json({ message: 'User found!' });
       } else {
-        res.status(403).json({ message: 'User not found.' });
+        res.status(403).json({ error: 'User not found.' });
       }
     });
 });
