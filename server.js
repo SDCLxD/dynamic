@@ -39,6 +39,7 @@ app.post('/script/whitelist', (req, res) => {
       const currentHWID = hwid1
     if (hwid1 === currentHWID) {
           res.status(200).json({ message: 'Whitelist realizada com sucesso' });
+          console.log('aeee');
         } else {
           res.status(403).json({ message: 'HWID inválido para esta chave' });
         }
