@@ -34,7 +34,7 @@ app.post('/script/whitelist', (req, res) => {
 
     if (results.length > 0) {
       const hwidwl = results[0];
-      if (user.hwid === null) {
+      if (hwidwl.hwid === null) {
         const updateQuery = 'UPDATE whitelist SET hwid = ? WHERE chave = ?';
         db.query(updateQuery, [hwide, chave1], (updateError, updateResults) => {
       if (updateError) throw updateError;
