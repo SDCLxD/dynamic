@@ -19,7 +19,8 @@ db.connect((error) => {
 });
 
 app.post('/script/whitelist', (req, res) => {
-  const { chave, hwid1 } = req.body;
+  const { hwid1 } = req.body;
+  const { chave } = req.query;
   
   if (!chave || !hwid1) {
     return res.status(400).json({ message: 'Nenhuma chave/hwid fornecido' });
