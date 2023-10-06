@@ -1,5 +1,4 @@
 const express = require('express');
-const axios = require('axios');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
@@ -7,10 +6,10 @@ const app = express();
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
-  host: '144.22.205.36',
-  user: 'maqasd',
+  host: '165.22.239.13',
+  user: 'saidvm',
   password: 'senha1234',
-  database: 'sistemawhitelist'
+  database: 'wlwhitelist'
 });
 
 db.connect((error) => {
