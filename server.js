@@ -33,20 +33,24 @@ app.post('/script/whitelist', (req, res) => {
     if (error) throw error;
 
     if (results.length > 0) {
-      const whitelistEntry = results[0];
-      const storedHWID = whitelistEntry.hwid;
-
-      if (storedHWID === hwide || storedHWID === 'null') {
-        res.status(200).json({ message: 'Whitelist realizada com sucesso' });
-        console.log('os dois batem');
-      } else {
-        res.status(403).json({ message: 'HWID inválido para esta chave' });
-        console.log('os dois n batem');
-      }
-    } else {
-      res.status(403).json({ message: 'Chave não encontrada na whitelist' });
-      console.log('a chave n bate');
-    }
+      const hwidwl = results[0];
+        if (user.hwid === hwide) {
+            res.status(200).json({ message: 'Whitelist realizada com sucesso' });
+            console.log('os dois batem');
+          } else {
+            res.status(403).json({ message: 'HWID inválido para esta chave' });
+            console.log('os dois n batem');
+          }
+        } else {
+          res.status(403).json({ message: 'Chave não encontrada na whitelist' });
+          console.log('a chave n bate');
+        }
+      if (user.hwid === null) {
+          const updateQuery = 'UPDATE whitelist SET hwid = ? WHERE chave = ?';
+          db.query(updateQuery, [hwid1, chave1], (updateError, updateResults) => {
+            if (updateError) throw updateError;
+              console.log('HWID atualizado para:', hwid1);
+      });
   });
 });
 
