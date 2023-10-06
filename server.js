@@ -38,7 +38,8 @@ app.post('/script/whitelist', (req, res) => {
       res.status(200).json({ message: 'Whitelist realizada com sucesso' });
     } else {
       res.status(403).json({ message: 'HWID inválido para esta chave' });
-    } else {
+    } 
+    else {
         res.status(200).json({ message: 'Whitelist realizada com sucesso' });
       }
     } else {
