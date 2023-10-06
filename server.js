@@ -44,13 +44,6 @@ app.post('/script/whitelist', (req, res) => {
         } else {
           res.status(403).json({ message: 'Chave não encontrada na whitelist' });
           console.log('a chave n bate');
-      if (user.hwid === null) {
-          const updateQuery = 'UPDATE whitelist SET hwid = ? WHERE chave = ?';
-          db.query(updateQuery, [hwid1, chave1], (updateError, updateResults) => {
-            if (updateError) throw updateError;
-              console.log('HWID atualizado para:', hwid1);
-          });
-        }
       }
   });
 });
