@@ -50,7 +50,8 @@ app.post('/script/whitelist', (req, res) => {
           db.query(updateQuery, [hwid1, chave1], (updateError, updateResults) => {
             if (updateError) throw updateError;
               console.log('HWID atualizado para:', hwid1);
-      });
+          });
+      }
   });
 });
 
