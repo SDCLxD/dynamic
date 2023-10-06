@@ -18,11 +18,11 @@ db.connect((error) => {
   console.log('Conectado ao servidor MySQL.');
 });
 
-app.get('/script/whitelist', (req, res) => {
-  const { chave } = req.query;
+app.post('/script/whitelist', (req, res) => {
+  const { chave, hwid1 } = req.body;
   
-  if (!chave) {
-    return res.status(400).json({ message: 'Nenhuma chave fornecida' });
+  if (!chave || !hwid1) {
+    return res.status(400).json({ message: 'Nenhuma chave/hwid fornecido' });
   }
 
   const query = 'SELECT * FROM whitelist WHERE chave = ?';
@@ -30,7 +30,17 @@ app.get('/script/whitelist', (req, res) => {
     if (error) throw error;
 
     if (results.length > 0) {
+      const whitelistEntry = results[0];
+    if (whitelistEntry.hwid && whitelistEntry.hwid !=='NULL') {
+      const { hwid } = whitelistEntry;
+      const currentHWID = hwid1
+    if (hwid === curentHWID) {
       res.status(200).json({ message: 'Whitelist realizada com sucesso' });
+    } else {
+      res.status(403).json({ message: 'HWID inválido para esta chave' });
+    } else {
+        res.status(200).json({ message: 'Whitelist realizada com sucesso' });
+      }
     } else {
       res.status(403).json({ message: 'Chave não encontrada na whitelist' });
     }
