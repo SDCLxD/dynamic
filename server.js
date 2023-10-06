@@ -19,7 +19,7 @@ db.connect((error) => {
 });
 
 app.post('/script/whitelist', (req, res) => {
-  const { keye, hwide } = req.body;
+  const { chave, hwide } = req.body;
   const chave = req.query;
 
   if (!chave || !hwide) {
