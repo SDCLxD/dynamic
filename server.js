@@ -41,7 +41,7 @@ app.post('/script/whitelist', (req, res) => {
       } else if (whitelistEntry.hwid === hwide) {
         res.status(200).json({ message: 'Whitelist realizada com sucesso' });
       } else {
-        res.status(403).json({ message: 'Chave ou HWID inválidos.', error: "[Verify] HWID does not match key, ask for an HWID reset" });
+        res.status(403).json({ message: 'Chave ou HWID inválidos.', error: '[Verify] HWID does not match key, ask for an HWID reset' });
       }
     }
   });
