@@ -43,7 +43,6 @@ app.post('/script/whitelist', (req, res) => {
         } else {
           res.status(403).json({ message: 'HWID inválido para esta chave' });
         }
-      }
   });
 });
 
