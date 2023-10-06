@@ -8,8 +8,8 @@ app.use(bodyParser.json());
 
 const db = mysql.createConnection({
   host: '144.22.205.36',
-  user: 'maquinaremota',
-  password: 'senha123',
+  user: 'maqasd',
+  password: 'senha1234',
   database: 'sistemawhitelist'
 });
 
