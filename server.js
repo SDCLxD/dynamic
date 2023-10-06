@@ -18,6 +18,10 @@ db.connect((error) => {
   console.log('Conectado ao servidor MySQL.');
 });
 
+app.get('/get', function(req, res) => {
+  res.send("Olá");
+});
+
 app.post('/script/whitelist', (req, res) => {
   const { chave1, hwide } = req.body;
   const { chave } = req.query;
