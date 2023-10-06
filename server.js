@@ -34,7 +34,7 @@ app.post('/script/whitelist', (req, res) => {
 
     if (results.length > 0) {
       const hwidwl = results[0];
-        if (user.hwid === hwide) {
+        if (hwidwl.hwid === hwide) {
             res.status(200).json({ message: 'Whitelist realizada com sucesso' });
             console.log('os dois batem');
           } else {
