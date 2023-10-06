@@ -19,19 +19,18 @@ db.connect((error) => {
 });
 
 app.post('/script/whitelist', (req, res) => {
-  const { keye, hwid1 } = req.body;
-  const chave1 = keye
-  const hwide = hwid1
-  const chave = req.query;
+  const { keye, hwide } = req.body;
+  const chave12 = keye
+  const chave1 = req.query;
 
-  if (!chave1 || !hwid1) {
+  if (!chave12 || !hwide) {
     return res.status(400).json({ message: 'Chave ou HWID não fornecido' });
   }
 
-  console.log('hwid recebido:', hwide);
+  console.log('hwid recebido:', hwid1);
 
   const query = 'SELECT * FROM whitelist WHERE chave = ?';
-  db.query(query, [chave], (error, results) => {
+  db.query(query, [chave1], (error, results) => {
     if (error) throw error;
 
     if (results.length > 0) {
