@@ -39,8 +39,8 @@ app.post('/script/whitelist', (req, res) => {
         db.query(updateQuery, [hwide, chave1], (updateError, updateResults) => {
       if (updateError) throw updateError;
           console.log('HWID atualizado para:', hwide);
-      });
-        if (hwidwl.hwid === hwide) {
+        });
+      else (hwidwl.hwid === hwide) {
             res.status(200).json({ message: 'Whitelist realizada com sucesso' });
             console.log('os dois batem');
           } else {
