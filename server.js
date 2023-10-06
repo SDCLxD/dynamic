@@ -18,7 +18,7 @@ db.connect((error) => {
   console.log('Conectado ao servidor MySQL.');
 });
 
-app.get('/get', function(req, res) => {
+app.get('/get', function(req, res) {
   res.send("Olá");
 });
 
