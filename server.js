@@ -25,6 +25,8 @@ app.post('/script/whitelist', (req, res) => {
     return res.status(400).json({ message: 'Nenhuma chave/hwid fornecido' });
   }
 
+  console.log('hwid recebido:', hwid1);
+
   const query = 'SELECT * FROM whitelist WHERE chave = ?';
   db.query(query, [chave], (error, results) => {
     if (error) throw error;
