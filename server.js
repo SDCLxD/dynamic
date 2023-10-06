@@ -19,14 +19,14 @@ db.connect((error) => {
 });
 
 app.post('/script/whitelist', (req, res) => {
-  const { hwid1 } = req.body;
+  const { hwid } = req.body;
   const { chave } = req.query;
   
-  if (!hwid1) {
+  if (!hwid) {
     return res.status(400).json({ message: 'Nenhuma chave/hwid fornecido' });
   }
 
-  console.log('hwid recebido:', hwid1);
+  console.log('hwid recebido:', hwid);
 
   const query = 'SELECT * FROM whitelist WHERE chave = ?';
   db.query(query, [chave], (error, results) => {
@@ -35,9 +35,9 @@ app.post('/script/whitelist', (req, res) => {
     if (results.length > 0) {
       const whitelistEntry = results[0];
     if (whitelistEntry.hwid && whitelistEntry.hwid !== 'null') {
-      const { hwid } = whitelistEntry;
+      const { hwid1 } = whitelistEntry;
       const currentHWID = hwid1
-    if (hwid === currentHWID) {
+    if (hwid1 === currentHWID) {
           res.status(200).json({ message: 'Whitelist realizada com sucesso' });
         } else {
           res.status(403).json({ message: 'HWID inválido para esta chave' });
