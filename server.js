@@ -51,6 +51,7 @@ app.post('/script/whitelist', (req, res) => {
           res.status(403).json({ message: 'Chave não encontrada na whitelist' });
           console.log('a chave n bate');
       }
+    }
   });
 });
 
