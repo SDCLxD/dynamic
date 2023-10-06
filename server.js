@@ -22,7 +22,7 @@ app.post('/script/whitelist', (req, res) => {
   const { hwid1 } = req.body;
   const { chave } = req.query;
   
-  if (!chave || !hwid1) {
+  if (!hwid1) {
     return res.status(400).json({ message: 'Nenhuma chave/hwid fornecido' });
   }
 
@@ -34,7 +34,7 @@ app.post('/script/whitelist', (req, res) => {
 
     if (results.length > 0) {
       const whitelistEntry = results[0];
-    if (whitelistEntry.hwid && whitelistEntry.hwid !=='NULL') {
+    if (whitelistEntry.hwid && whitelistEntry.hwid !== 'null') {
       const { hwid } = whitelistEntry;
       const currentHWID = hwid1
     if (hwid === currentHWID) {
