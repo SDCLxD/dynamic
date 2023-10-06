@@ -41,9 +41,11 @@ app.post('/script/whitelist', (req, res) => {
         console.log('os dois batem');
       } else {
         res.status(403).json({ message: 'HWID inválido para esta chave' });
+        console.log('os dois n batem');
       }
     } else {
       res.status(403).json({ message: 'Chave não encontrada na whitelist' });
+      console.log('a chave n bate');
     }
   });
 });
