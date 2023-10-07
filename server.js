@@ -6,7 +6,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
-  host: '137.184.68.43',
+  host: '138.197.231.118',
   user: 'maquinaremota',
   password: 'senha123',
   database: 'sistemawhitelist'
